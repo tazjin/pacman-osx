@@ -1,0 +1,22 @@
+pkgname=gettext
+pkgver=0.19.2
+pkgrel=1
+pkgdesc="GNU internationalization library"
+arch=('x86_64')
+url="http://www.gnu.org/software/gettext/"
+license=('GPL')
+depends=('osx')
+makedepends=('xz')
+source=("https://ftp.gnu.org/gnu/gettext/gettext-${pkgver}.tar.xz")
+md5sums=('1e6a827f5fbd98b3d40bd16b803acc44')
+
+build () {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  ./configure --prefix=${pkgdir}/usr/local
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make install
+}
