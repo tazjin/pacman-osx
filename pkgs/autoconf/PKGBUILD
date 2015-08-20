@@ -1,0 +1,27 @@
+pkgname=autoconf
+pkgver=2.69
+pkgrel=2
+pkgdesc="A GNU tool for automatically configuring source code"
+arch=('x86_64')
+license=('GPL2' 'GPL3' 'custom')
+url="http://www.gnu.org/software/autoconf"
+license=('GPL')
+depends=('osx')
+makedepends=('xz')
+source=("https://ftp.gnu.org/gnu/${pkgname}/${pkgname}-${pkgver}.tar.xz")
+md5sums=('50f97f4159805e374639a73e2636f22e')
+
+build () {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  ./configure --prefix=${pkgdir}/usr/local
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make install
+
+  # remove unwanted files
+  rm -f ${pkgdir}/usr/local/share/info/standards.info
+  rm -f ${pkgdir}/usr/local/share/info/dir
+}
