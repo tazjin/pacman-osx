@@ -1,0 +1,23 @@
+pkgname=pkg-config
+pkgver=0.28
+pkgrel=1
+pkgdesc="A system for managing library compile/link flags"
+arch=('i686' 'x86_64')
+url="http://pkgconfig.freedesktop.org/wiki/"
+license=('GPL')
+depends=('osx')
+makedepends=('xz')
+source=("http://pkgconfig.freedesktop.org/releases/${pkgname}-${pkgver}.tar.gz")
+md5sums=('aa3c86e67551adc3ac865160e34a2a0d')
+
+build () {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  ./configure --prefix=${pkgdir}/usr/local \
+              --with-internal-glib
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make install
+}
