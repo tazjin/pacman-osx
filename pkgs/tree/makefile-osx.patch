@@ -1,0 +1,19 @@
+--- Makefile	2015-08-20 23:50:55.000000000 +0200
++++ Makefile.mac	2015-08-20 23:51:56.000000000 +0200
+@@ -53,11 +53,11 @@
+ #OBJS+=strverscmp.o
+ 
+ # Uncomment for OS X:
+-#CC=cc
+-#CFLAGS=-O2 -Wall -fomit-frame-pointer -no-cpp-precomp
+-#LDFLAGS=
+-#MANDIR=/usr/share/man/man1
+-#OBJS+=strverscmp.o
++CC=cc
++CFLAGS=-O2 -Wall -fomit-frame-pointer -no-cpp-precomp
++LDFLAGS=
++# MANDIR=/usr/share/man/man1
++OBJS+=strverscmp.o
+ 
+ # Uncomment for HP/UX:
+ #CC=cc
