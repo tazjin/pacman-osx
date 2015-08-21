@@ -1,0 +1,21 @@
+pkgname=libarchive
+pkgver=2.8.3
+pkgrel=1
+pkgdesc="library that can create and read several streaming archive formats"
+arch=('x86_64')
+url="http://libarchive.org/"
+license=('BSD')
+depends=('osx' 'cmake')
+source=("https://github.com/libarchive/libarchive/archive/v${pkgver}.tar.gz")
+md5sums=('b8fb8d0e438fbbf82b54eedc616c8aa2')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  cmake -DCMAKE_INSTALL_PREFIX=${pkgdir}/usr/local .
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make install
+}
