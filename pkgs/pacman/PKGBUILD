@@ -1,0 +1,54 @@
+#pacman
+
+pkgname=pacman
+pkgver=4.2.1
+pkgrel=1
+pkgdesc="A library-based package manager with dependency support"
+arch=('x86_64')
+url="http://www.archlinux.org/pacman/"
+license=('GPL')
+groups=('base' 'base-devel')
+depends=('bash>=4.2.042-2' 'curl>=7.19.4')
+optdepends=('fakeroot: for makepkg usage as normal user')
+provides=('pacman-contrib')
+conflicts=('pacman-contrib')
+replaces=('pacman-contrib')
+backup=(usr/local/etc/pacman.conf usr/local/etc/makepkg.conf)
+options=(!libtool)
+source=(https://sources.archlinux.org/other/pacman/$pkgname-$pkgver.tar.gz
+        makepkg.conf
+        makepkg.patch)
+md5sums=('2a596fc8f723e99660c0869a74afcf47'
+         '46ff731b6f3fc1ec8088739b4a0b3efc'
+         'cf26ba7d8e973c1ace0d20a5a790aa95')
+
+build() {
+  cd $srcdir/$pkgname-$pkgver
+
+  export LIBARCHIVE_CFLAGS="-I/opt/libarchive/include"
+  export LIBARCHIVE_LIBS="-larchive"
+  export LIBCURL_CFLAGS="-I/usr/include/curl"
+  export LIBCURL_LIBS="-lcurl"
+
+  ./configure --prefix=/usr/local \
+              --enable-doc \
+              --sysconfdir=/usr/local/etc \
+              --with-scriptlet-shell=/usr/local/bin/bash \
+              --with-ldconfig=/usr/local/bin/ldconfig \
+              --with-curl
+
+  make
+  make -C contrib
+}
+
+package() {
+  cd $srcdir/$pkgname-$pkgver
+
+  make DESTDIR=$pkgdir install
+  make DESTDIR=$pkgdir -C contrib install
+
+  install -m644 "$srcdir/makepkg.conf" "$pkgdir/usr/local/etc"
+
+  cd $pkgdir
+  patch -Np1 < $srcdir/makepkg.patch
+}
