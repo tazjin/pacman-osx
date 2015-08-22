@@ -1,0 +1,15 @@
+pkgname=getopt
+pkgver=1.1.6
+pkgrel=1
+pkgdesc='Command-line option parsing library'
+arch=('x86_64')
+url='http://software.frodo.looijaard.name/getopt/'
+license=('GPL')
+depends=('gettext')
+source=("http://frodo.looijaard.name/system/files/software/getopt/${pkgname}-${pkgver}.tar.gz")
+md5sums=('4eaff9e6d8b2504a2e0d29ff0e9fd956')
+
+package() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  make LDFLAGS='-lintl' DESTDIR=${pkgdir} install
+}
