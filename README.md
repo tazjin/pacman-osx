@@ -21,11 +21,24 @@ Packages that currently have packaging and work on OS X:
 * bash
 * cmake
 * gettext
+* gmp
+* gnupg
+* gzip
 * libarchive
+* libassuan
+* libgcrypt
+* libgpg-error
+* libksba
+* libtasn1
 * libtool
+* npth
 * osx
 * pacman
+* pass
+* pinentry
 * pkg-config
+* pwgen
+* texinfo
 * tree
 * xz
 
@@ -35,6 +48,6 @@ I intend to put up a simple repository with the packages I built, mostly
 for myself. Information about that will be added here once it exists and
 it can be used by other people at that point, though I will guarantee
 nothing.
- 
+
 [pacman]: https://www.archlinux.org/pacman/
 [kladd]: https://github.com/kladd/pacman-osx
