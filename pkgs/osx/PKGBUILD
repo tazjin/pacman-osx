@@ -1,6 +1,6 @@
 pkgname=osx
 pkgver=10.10
-pkgrel=1
+pkgrel=3
 pkgdesc='Packages included in OS X'
 arch=('x86_64')
 license=('')
@@ -14,4 +14,8 @@ provides=('gcc=4.2.1'
           'python2'
           'bzip2=1.0.6'
           'awk'
-          'libldap')
+          'libldap'
+          'glibc'
+          'gzip'
+          'findutils'
+          'perl')
