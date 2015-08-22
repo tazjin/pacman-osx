@@ -1,0 +1,38 @@
+# $Id$
+# Maintainer:  Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Contributor: Allan McRae <allan@archlinux.org>
+# Contributor: Tom Newsom <Jeepster@gmx.co.uk>
+
+pkgname=texinfo
+pkgver=6.0
+pkgrel=1
+pkgdesc='GNU documentation system for on-line information and printed output'
+arch=('i686' 'x86_64')
+url='http://www.gnu.org/software/texinfo/'
+license=('GPL3')
+groups=('base' 'base-devel')
+depends=('ncurses' 'findutils' 'gzip' 'perl' 'sh')
+source=(ftp://ftp.gnu.org/pub/gnu/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
+md5sums=('02818e62a5b8ae0213a7ff572991bb50' 'SKIP')
+validpgpkeys=('EAF669B31E31E1DECBD11513DDBC579DAB37FBA9') # Gavin Smith
+
+prepare() {
+  cd $pkgname-$pkgver
+}
+
+build() {
+  cd $pkgname-$pkgver
+  ./configure --prefix=/usr/local
+  make
+}
+
+check() {
+  make -C $pkgname-$pkgver check
+}
+
+package() {
+  make -C $pkgname-$pkgver DESTDIR="$pkgdir" install
+
+  # remove unwanted file
+  rm -f ${pkgdir}/usr/local/share/info/dir
+}
