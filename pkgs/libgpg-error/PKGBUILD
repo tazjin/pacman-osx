@@ -1,0 +1,31 @@
+pkgname=libgpg-error
+pkgver=1.19
+pkgrel=1
+pkgdesc="Support library for libgcrypt"
+arch=(i686 x86_64)
+url="http://www.gnupg.org"
+license=('LGPL')
+depends=('osx')
+source=(ftp://ftp.gnupg.org/gcrypt/libgpg-error/${pkgname}-${pkgver}.tar.bz2{,.sig})
+md5sums=('c04c16245b92829281f43b5bef7d16da' 'SKIP')
+# https://www.gnupg.org/download/integrity_check.html
+validpgpkeys=('D8692123C4065DEA5E0F3AB5249B39D24F25E3B6') # Werner Koch
+
+build() {
+  cd ${pkgname}-${pkgver}
+  ./configure --prefix=/usr/local
+  make
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  make check
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  make DESTDIR="${pkgdir}/" install
+
+  # remove unwanted file
+  rm -f ${pkgdir}/usr/local/share/info/dir
+}
