@@ -1,0 +1,35 @@
+# $Id$
+# Mainainer: Sébastien "Seblu" Luttringer <seblu@archlinux.org>
+# Contributor: Allan McRae <allan@archlinux.org>
+# Contributor: judd <jvinet@zeroflux.org>
+
+pkgname=gzip
+pkgver=1.6
+pkgrel=1
+pkgdesc='GNU compression utility'
+arch=('i686' 'x86_64')
+url='http://www.gnu.org/software/gzip/'
+license=('GPL3')
+groups=('base' 'base-devel')
+depends=('glibc' 'bash')
+source=("ftp://ftp.gnu.org/pub/gnu/gzip/gzip-$pkgver.tar.xz")
+md5sums=('da981f86677d58a106496e68de6f8995')
+
+build() {
+  cd $pkgname-$pkgver
+  ./configure --prefix=/usr/local
+  make
+}
+
+check() {
+  cd $pkgname-$pkgver
+  make check
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make prefix="$pkgdir/usr/local" install
+
+  # remove unwanted file
+  rm -f ${pkgdir}/usr/local/share/info/dir
+}
