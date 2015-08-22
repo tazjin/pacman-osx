@@ -1,0 +1,22 @@
+pkgname=libressl
+pkgver=2.2.2
+pkgrel=1
+pkgdesc='OpenBSD fork of OpenSSL'
+arch=('x86_64')
+depends=('osx')
+provides=('openssl')
+validpgpkeys=('A1EB079B8D3EB92B4EBD3139663AF51BD5E4D8D5')
+source=(http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/${pkgname}-${pkgver}.tar.gz{,.asc})
+sha256sums=('e094b09f33d468545edbb2b16dc178f958ec2f66de1a2fc7cc2a20bd2489a114'
+            'SKIP')
+
+build() {
+    cd ${srcdir}/${pkgname}-${pkgver}
+    ./configure --prefix=/usr/local
+    make
+}
+
+package() {
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR=${pkgdir} install
+}
