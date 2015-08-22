@@ -1,8 +1,8 @@
 Pacman on OS X
 ==============
 
-My current work computer is a MacBook for `:reasons:`. As I have only used
-Arch for a couple of years and OS X lacks decent package management (no,
+My current work computer is a MacBook for `:reasons:`. As I have used
+Arch exclusively for a couple of years and OS X lacks decent package management (no,
 Homebrew is not a package manager) the way to go was obviously to run Arch's
 [pacman][] on OS X.
 
