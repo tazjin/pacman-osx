@@ -1,8 +1,17 @@
---- /usr/local/bin/makepkg	2014-08-12 20:34:56.000000000 -0400
-+++ pkg/bin/makepkg	2014-08-12 20:36:20.000000000 -0400
-@@ -2886,11 +2886,6 @@ ownership of the packaged files. Try usi
- placing %s in the %s array in %s.")" "makepkg" "fakeroot" "'fakeroot'" "BUILDENV" "$MAKEPKG_CONF"
- 		sleep 1
+--- scripts/makepkg.sh.in	2015-02-14 02:30:05.000000000 +0100
++++ makepkg.sh.in	2015-08-22 12:29:00.000000000 +0200
+@@ -1407,7 +1407,7 @@
+ 	local file ext decompress found pubkey success status fingerprint trusted
+ 	local warning=0
+ 	local errors=0
+-	local statusfile=$(mktemp)
++	local statusfile=$(mktemp /tmp/makepkg.XXXXXX)
+ 	local all_sources
+ 
+ 	case $1 in
+@@ -3431,11 +3431,6 @@
+ catastrophic damage to your system.")" "makepkg"
+ 		exit 1 # $E_USER_ABORT
  	fi
 -else
 -	if [[ -z $FAKEROOTKEY ]]; then

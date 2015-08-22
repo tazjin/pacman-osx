@@ -2,7 +2,7 @@
 
 pkgname=pacman
 pkgver=4.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A library-based package manager with dependency support"
 arch=('x86_64')
 url="http://www.archlinux.org/pacman/"
@@ -20,7 +20,12 @@ source=(https://sources.archlinux.org/other/pacman/$pkgname-$pkgver.tar.gz
         makepkg.patch)
 md5sums=('2a596fc8f723e99660c0869a74afcf47'
          '46ff731b6f3fc1ec8088739b4a0b3efc'
-         'cf26ba7d8e973c1ace0d20a5a790aa95')
+         'bbf493190defb431d1448b28240ba6c9')
+
+prepare() {
+  cd $srcdir/$pkgname-$pkgver
+  patch -p0 < ${srcdir}/makepkg.patch
+}
 
 build() {
   cd $srcdir/$pkgname-$pkgver
@@ -48,7 +53,4 @@ package() {
   make DESTDIR=$pkgdir -C contrib install
 
   install -m644 "$srcdir/makepkg.conf" "$pkgdir/usr/local/etc"
-
-  cd $pkgdir
-  patch -Np1 < $srcdir/makepkg.patch
 }
