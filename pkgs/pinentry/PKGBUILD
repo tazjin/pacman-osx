@@ -1,0 +1,36 @@
+# $Id$
+# Maintainer: Tobias Powalowski <tpowa@archlinux.org>
+pkgname=pinentry
+pkgver=0.9.5
+pkgrel=1
+pkgdesc="a collection of simple PIN or passphrase entry dialogs which utilize the Assuan protocol"
+arch=('x86_64')
+license=('GPL')
+url="http://gnupg.org/related_software/pinentry/"
+depends=('libgpg-error' 'libassuan')
+source=(ftp://ftp.gnupg.org/gcrypt/$pkgname/$pkgname-$pkgver.tar.bz2{,.sig})
+md5sums=('55439c4436b59573a29e144916ee5b61' 'SKIP')
+validpgpkeys=('D8692123C4065DEA5E0F3AB5249B39D24F25E3B6') # Werner Koch
+
+build() {
+  cd $srcdir/$pkgname-$pkgver
+
+  # https://bugs.gnupg.org/gnupg/issue1961
+  CXXFLAGS+=' -std=c++11'
+
+  ./configure --prefix=/usr/local \
+	--enable-pinentry-curses \
+	--disable-pinentry-gtk2 \
+    --disable-pinentry-qt4 \
+    --disable-pinentry-gnome3 \
+	--enable-fallback-curses
+  make
+}
+
+package() {
+  cd $srcdir/$pkgname-$pkgver
+  make DESTDIR=${pkgdir} install
+
+  # remove unwanted file
+  rm -f ${pkgdir}/usr/local/share/info/dir
+}
