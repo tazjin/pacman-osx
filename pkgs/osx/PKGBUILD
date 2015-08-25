@@ -18,4 +18,5 @@ provides=('gcc=4.2.1'
           'glibc'
           'gzip'
           'findutils'
-          'perl')
+          'perl'
+          'git')
