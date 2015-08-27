@@ -1,0 +1,19 @@
+pkgname=sipcalc
+pkgver=1.1.6
+pkgrel=1
+pkgdesc="IP subnet calculator"
+source=(http://www.routemeister.net/projects/sipcalc/files/${pkgname}-${pkgver}.tar.gz)
+arch=('x86_64')
+license=('unknown')
+md5sums=('e431c64387f2c8d20e96ad1d7931a845')
+
+build () {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  ./configure --prefix=/usr/local
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make DESTDIR=${pkgdir} install
+}
