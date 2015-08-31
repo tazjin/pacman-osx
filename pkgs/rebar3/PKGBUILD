@@ -1,0 +1,29 @@
+# Maintainer: Vincent Ambo <vincent@tazbook.home>
+pkgname=rebar3
+pkgver=beta2
+pkgrel=1
+pkgdesc="Erlang build and dependency management tool"
+arch=('x86_64')
+url="http://www.rebar3.org"
+license=('Apache')
+depends=('osx') # Currently also depends on Erlang solutions' Erlang package
+source=(https://github.com/rebar/${pkgname}/archive/beta-2.tar.gz)
+md5sums=('a5ea54bc34f88c111b8d0b282a6ab82f')
+
+prepare() {
+  which erl >/dev/null || \
+      echo 'You need to install Erlang using the Erlang solutions package first'
+}
+
+build() {
+  cd "$srcdir/$pkgname-beta-2"
+
+  ./bootstrap
+}
+
+package() {
+  cd "$srcdir/$pkgname-beta-2"
+
+  install -d "${pkgdir}/usr/local/bin/"
+  install -sc "rebar3" "${pkgdir}/usr/local/bin/rebar3"
+}
