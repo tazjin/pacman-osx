@@ -1,6 +1,6 @@
 pkgname=libtool
 pkgver=2.4.6
-pkgrel=1
+pkgrel=2
 pkgdesc="A generic library support script"
 arch=('x86_64')
 url="http://www.gnu.org/software/libtool"
@@ -12,13 +12,13 @@ md5sums=('1bfb9b923f2c1339b4d2ce1807064aa5')
 
 build () {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  ./configure --prefix=${pkgdir}/usr/local
+  ./configure --prefix=/usr/local
   make
 }
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  make install
+  make DESTDIR="${pkgdir}" install
 
   # remove unwanted file
   rm -f ${pkgdir}/usr/local/share/info/dir

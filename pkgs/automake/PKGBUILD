@@ -1,6 +1,6 @@
 pkgname=automake
 pkgver=1.15
-pkgrel=1
+pkgrel=2
 pkgdesc="A GNU tool for automatically creating Makefiles"
 arch=('any')
 license=('GPL')
@@ -13,13 +13,13 @@ md5sums=('9a1ddb0e053474d9d1105cfe39b0c48d')
 
 build () {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  ./configure --prefix=${pkgdir}/usr/local
+  ./configure --prefix=/usr/local
   make
 }
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  make install
+  make DESTDIR="${pkgdir}" install
 
   # remove unwanted file
   rm -f ${pkgdir}/usr/local/share/info/dir

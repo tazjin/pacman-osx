@@ -1,6 +1,6 @@
 pkgname=bash
 pkgver=4.3
-pkgrel=1
+pkgrel=2
 pkgdesc='The GNU Bourne Again shell'
 arch=('x86_64')
 license=('GPL')
@@ -12,11 +12,11 @@ md5sums=('81348932d5da294953e15d4814c74dd1')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  ./configure --prefix=${pkgdir}/usr/local
+  ./configure --prefix=/usr/local
   make
 }
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  make install
+  make DESTDIR="${pkgdir}" install
 }

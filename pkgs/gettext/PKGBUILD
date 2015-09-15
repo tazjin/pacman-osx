@@ -1,6 +1,6 @@
 pkgname=gettext
 pkgver=0.19.2
-pkgrel=1
+pkgrel=2
 pkgdesc="GNU internationalization library"
 arch=('x86_64')
 url="http://www.gnu.org/software/gettext/"
@@ -12,11 +12,11 @@ md5sums=('1e6a827f5fbd98b3d40bd16b803acc44')
 
 build () {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  ./configure --prefix=${pkgdir}/usr/local
+  ./configure --prefix=/usr/local
   make
 }
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  make install
+  make DESTDIR="${pkgdir}" install
 }
