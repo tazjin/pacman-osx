@@ -1,0 +1,8 @@
+pkgname=xquartz
+pkgver=1
+pkgrel=1
+pkgdesc="Wrapper package for XQuartz"
+url="http://xquartz.macosforge.org/landing/"
+arch=('any')
+depends=('osx')
+install=xquartz.install

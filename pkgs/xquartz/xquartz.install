@@ -1,0 +1,22 @@
+# Verifies the actual XQuartz installation
+
+pre_install() {
+  cat <<EOF
+Note that this package does not actually install XQuartz! You need to download
+and install XQuartz from this URL:
+
+    http://xquartz.macosforge.org/landing/
+
+If you already installed XQuartz you can ignore this message. This package will
+now proceed to verify your XQuartz installation, 
+
+It is possible that I will package XQuartz properly in the future.
+EOF
+
+  if [ -d "/Applications/Utilities/XQuartz.app/" ]; then
+      echo "XQuartz is most likely installed, good job."
+  else
+      echo "XQuartz is not installed, aborting."
+      exit 1
+  fi
+}
