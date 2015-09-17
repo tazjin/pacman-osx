@@ -1,0 +1,25 @@
+# Maintainer: Vincent Ambo <vincent@tazbook.local>
+pkgname=boost
+pkgver=1.59.0
+_pkgver=1_59_0
+pkgrel=1
+pkgdesc="Free peer-reviewed portable C++ source libraries"
+arch=('x86_64')
+url="http://www.boost.org/"
+license=('custom:Boost Software License')
+depends=('osx' 'icu4c')
+source=("http://sourceforge.net/projects/boost/files/boost/${pkgver}/boost_${_pkgver}.tar.gz/download")
+md5sums=('51528a0e3b33d9e10aaa311d9eb451e3')
+
+build() {
+  export _stagedir="${srcdir}/stagedir"
+  cd  "${srcdir}/${pkgname}_${_pkgver}"
+
+  ./bootstrap.sh --prefix="/usr/local" --with-icu
+}
+
+package() {
+  cd "${srcdir}/${pkgname}_${_pkgver}"
+
+  ./b2 install -j2 --prefix="${pkgdir}/usr/local"
+}
